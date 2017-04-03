@@ -48,50 +48,26 @@ namespace Instagram
                       feedPage.OpenResultsForAHashTag(tag)                    
                      .OpenFirstPostDetails()
                      .PutLikesOnPostDetails(numberOfPosts));*/
-           
+
             foreach (string tag in hashtags)
             {
-                //page = feedPage.OpenResultsForAHashTag(tag);
-                //postdet = page.OpenFirstPostDetails();
+                page = feedPage.OpenResultsForAHashTag(tag);
+                postdet = page.OpenFirstPostDetails();
 
-                postdet = feedPage
-                    .OpenResultsForAHashTag(tag)
-                    .OpenFirstPostDetails();
-
-                // PutLikes(numberOfPosts, postdet);
-                PutLikesAndFollowing(numberOfPosts, postdet);
+                if (postdet.PutLikesOnPostDetails(numberOfPosts))
+                {
+                    try
+                    {
+                        postdet.ClosePostDetailsPage();
+                    }
+                    catch (Exception)
+                    {
+                        Console.WriteLine("Close deatails");
+                    }
+                }
+               
             }
-
-        }
-
-        private static void PutLikes(int numberOfPosts, PostDetails postdet)
-        {
-            if (postdet.PutLikesOnPostDetails(numberOfPosts, false))
-            {
-                try
-                {
-                    postdet.ClosePostDetailsPage();
-                }
-                catch (Exception)
-                {
-                    Console.WriteLine("Close details");
-                }
-            }
-        }
-
-        private static void PutLikesAndFollowing(int numberOfPosts, PostDetails postdet)
-        {
-            if (postdet.PutLikesOnPostDetails(numberOfPosts, true))
-            {
-                try
-                {
-                    postdet.ClosePostDetailsPage();
-                }
-                catch (Exception)
-                {
-                    Console.WriteLine("Close details");
-                }
-            }
-        }
+        
+        }       
     }
 }

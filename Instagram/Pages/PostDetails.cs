@@ -18,8 +18,6 @@ namespace Instagram.Pages
         private const string FullHeartPath = ".//span[contains(@class,'coreSpriteHeartFull')]";
         private const string CloseDetailsButtonPath = "//button[@class='_3eajp']";
         private const string RightPaginatorArrowCss = "a[class$=coreSpriteRightPaginationArrow]";
-        private const string Follow = "//button [@class = '_ah57t _84y62 _i46jh _rmr7s']";
-        private const string AlreadyFollow = "//button [@class = '_ah57t _6y2ah _i46jh _rmr7s']";
 
         private static int numberOfLikedPics;
         Random r;
@@ -36,8 +34,6 @@ namespace Instagram.Pages
         [FindsBy(How = How.CssSelector, Using = RightPaginatorArrowCss)]
         private IWebElement RightPaginatorArrow;
 
-        [FindsBy(How = How.XPath, Using = Follow)]
-        private IWebElement FollowButton;
         #endregion
 
 
@@ -78,16 +74,7 @@ namespace Instagram.Pages
             return true;
         }
 
-        private bool AlreadyFollowed()
-        {
-            if (Driver.IsElementExists(By.XPath(AlreadyFollow), 3)) return false;
-
-            Console.WriteLine("This author is already followed");
-            return true;
-        }
-
-
-        public bool PutLikesOnPostDetails(int numberOfLikedPosts, bool followFlag)
+        public bool PutLikesOnPostDetails(int numberOfLikedPosts)
         {
             bool connector = true;
             for (var i = 0; i < numberOfLikedPosts; i++)
@@ -123,12 +110,9 @@ namespace Instagram.Pages
                 {
                     PutLike();
                     ++numberOfLikedPics;
-                    if (followFlag && AlreadyFollowed())
-                    {
-                        Foolow();
-                    }
                     if (!GoToNextPostDetails())
                     {
+                        //Driver.WaitForElementExists(By.CssSelector("div.error-container a"), 2).ClickJs();
                         connector = false;
                         break;
                     }
@@ -139,12 +123,6 @@ namespace Instagram.Pages
             return connector;
         }
 
-        private void Foolow()
-        {
-            Driver.WaitForElementVisible(By.XPath(Follow));
-            this.FollowButton.Click();
-
-        }
 
         private void PutLike()
         {
