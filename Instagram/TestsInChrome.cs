@@ -64,6 +64,17 @@ namespace Instagram
 
         }
 
+        //[Test]
+        //[TestCase(100)]
+        [Description("Unfollow people")]
+        public void Unfollow()
+        {
+            InstPages.InstagramSignUpP.Open(URL);
+            InstagramMainFeedPage feedPage = InstPages.InstagramSignUpP.OpenLogin()
+                 .LoginToInstagram(_userName, _password);
+
+
+        }
         private static void PutLikes(int numberOfPosts, PostDetails postdet)
         {
             if (postdet.PutLikesOnPostDetails(numberOfPosts, false))

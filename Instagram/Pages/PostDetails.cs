@@ -18,9 +18,13 @@ namespace Instagram.Pages
         private const string FullHeartPath = ".//span[contains(@class,'coreSpriteHeartFull')]";
         private const string CloseDetailsButtonPath = "//button[@class='_3eajp']";
         private const string RightPaginatorArrowCss = "a[class$=coreSpriteRightPaginationArrow]";
-        private const string Follow = "//button [@class = '_ah57t _84y62 _i46jh _rmr7s']";
-        private const string AlreadyFollow = "//button [@class = '_ah57t _6y2ah _i46jh _rmr7s']";
-
+        //private const string Follow = "//button [@class = '_ah57t _84y62 _i46jh _rmr7s']";
+        //private const string AlreadyFollow = "//button [@class = '_ah57t _6y2ah _i46jh _rmr7s']";
+        private const string Follow = "//button[contains(text(), 'Подписаться')]";
+        private const string AlreadyFollow = "//button[contains(text(), 'Подписки')]";
+        //button[contains(@class, '_ah57t')]
+        //<button class="_ah57t _84y62 _i46jh _rmr7s _ltff9">Подписаться</button>
+        ////button[contains(text(), "Подписаться")]
         private static int numberOfLikedPics;
         Random r;
 
@@ -80,7 +84,7 @@ namespace Instagram.Pages
 
         private bool AlreadyFollowed()
         {
-            if (Driver.IsElementExists(By.XPath(AlreadyFollow), 3)) return false;
+            if (Driver.IsElementExists(By.XPath(AlreadyFollow), 5)) return false;
 
             Console.WriteLine("This author is already followed");
             return true;

@@ -13,13 +13,17 @@ namespace Instagram.Pages
 
         IWebDriver Driver;
         private const string SearchInputPath = "//input[contains(@class, '_9x5sw')]";
+        private const string DesctopNavProfile = "a[class*='coreSpriteDesktopNavProfile']";
 
         [FindsBy(How = How.XPath, Using = SearchInputPath)]
         private IWebElement SearchInput;
 
-#endregion
+        [FindsBy(How = How.CssSelector, Using = DesctopNavProfile)]
+        private IWebElement Profile;
 
-#region 'Constructor'
+        #endregion
+
+        #region 'Constructor'
 
         public InstagramMainFeedPage()
         {
@@ -49,7 +53,13 @@ namespace Instagram.Pages
             return new InstagramSearchResultsPage();
         }
 
-#endregion
+        public InstagramProfilePage GoProfile()
+        {
+            this.Profile.Click();
+            return new InstagramProfilePage();
+        }
+
+        #endregion
 
     }
 }

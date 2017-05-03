@@ -94,6 +94,7 @@
     <Compile Include="Pages\InstagramLoginPage.cs" />
     <Compile Include="IBrowsers.cs" />
     <Compile Include="Pages\InstagramMainFeedPage.cs" />
+    <Compile Include="Pages\InstagramProfilePage.cs" />
     <Compile Include="Pages\InstagramSearchResultsPage.cs" />
     <Compile Include="Pages\InstagramSignUpPage.cs" />
     <Compile Include="Pages\InstPages.cs" />

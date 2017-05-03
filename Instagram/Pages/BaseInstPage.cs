@@ -19,9 +19,11 @@ namespace Instagram.Pages
         [FindsBy(How = How.XPath, Using = AppBannerHintCloseButtonPath)]
         private IWebElement AppBannerHintCloseButton;
 
-#endregion
 
-#region 'Constructors'
+
+        #endregion
+
+        #region 'Constructors'
 
         public BaseInstPage()
         {
