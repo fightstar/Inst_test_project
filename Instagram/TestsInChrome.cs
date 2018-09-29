@@ -14,16 +14,19 @@ namespace Instagram
     public class TestsInChrome : SetUp
     {
         private static readonly Uri URL = new Uri(ConfigurationManager.AppSettings["InstagramUri"]);
-        private string _userName = ConfigurationManager.AppSettings["UserName"];
-        private string _password = ConfigurationManager.AppSettings["Password"];
+
+        private List<string> credsList = File.ReadLines(ConfigurationManager.AppSettings["Credentials"]).ToList();
 
         private List<string> hashtags = File.ReadAllLines(ConfigurationManager.AppSettings["Hashtags"]).ToList();
-
+        private string userName;
+        private string password;
 
         [SetUp]
         public void SetUp()
         {
             Inj.Driver = Inj.kernel.Get<IBrowsers>().GetChromeDriver();
+            userName = credsList[0];
+            password = credsList[1];
         }
 
         [TearDown]
@@ -33,35 +36,25 @@ namespace Instagram
             Inj.Driver.CLearBrowserLocalStorage();
         }
 
-
         [Test]
-        [TestCase(70)]
+        [TestCase(7)]
         [Description("Make Likes")]
         public void LetsPutSomeLikes(int numberOfPosts)
         {
             InstPages.InstagramSignUpP.Open(URL);
             InstagramMainFeedPage feedPage = InstPages.InstagramSignUpP.OpenLogin()
-                 .LoginToInstagram(_userName, _password);
+                 .LoginToInstagram(userName, password);
             InstagramSearchResultsPage page;
             PostDetails postdet;
-            /* hashtags.ForEach(tag =>
-                      feedPage.OpenResultsForAHashTag(tag)                    
-                     .OpenFirstPostDetails()
-                     .PutLikesOnPostDetails(numberOfPosts));*/
 
             foreach (string tag in hashtags)
             {
-                //page = feedPage.OpenResultsForAHashTag(tag);
-                //postdet = page.OpenFirstPostDetails();
-
                 postdet = feedPage
                     .OpenResultsForAHashTag(tag)
                     .OpenFirstPostDetails();
 
-                // PutLikes(numberOfPosts, postdet);
                 PutLikesAndFollowing(numberOfPosts, postdet);
             }
-
         }
 
         //[Test]
@@ -71,10 +64,9 @@ namespace Instagram
         {
             InstPages.InstagramSignUpP.Open(URL);
             InstagramMainFeedPage feedPage = InstPages.InstagramSignUpP.OpenLogin()
-                 .LoginToInstagram(_userName, _password);
-
-
+                 .LoginToInstagram(userName, password);
         }
+
         private static void PutLikes(int numberOfPosts, PostDetails postdet)
         {
             if (postdet.PutLikesOnPostDetails(numberOfPosts, false))

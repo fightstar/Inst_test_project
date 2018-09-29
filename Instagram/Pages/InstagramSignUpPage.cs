@@ -7,17 +7,16 @@ namespace Instagram.Pages
 {
     public class InstagramSignUpPage
     {
-
-#region 'Properties and controls'        
+        #region 'Properties and controls'
 
         private IWebDriver Driver;
 
-        [FindsBy(How = How.ClassName, Using = "_fcn8k")]
+        [FindsBy(How = How.CssSelector, Using = "a[href*=\"login\"]")]
         private IWebElement LoginLink;
 
-#endregion
+        #endregion 'Properties and controls'
 
-#region 'Constructor'        
+        #region 'Constructor'
 
         public InstagramSignUpPage()
         {
@@ -25,23 +24,21 @@ namespace Instagram.Pages
             PageFactory.InitElements(Driver, this);
         }
 
-#endregion
+        #endregion 'Constructor'
 
-#region 'Methods'
+        #region 'Methods'
 
         public void Open(Uri pageUri)
         {
             Driver.NavigateGoToUrl(pageUri);
         }
 
-
         public InstagramLoginPage OpenLogin()
         {
             this.LoginLink.Click();
             return new InstagramLoginPage();
-        } 
+        }
 
-#endregion
-
+        #endregion 'Methods'
     }
 }

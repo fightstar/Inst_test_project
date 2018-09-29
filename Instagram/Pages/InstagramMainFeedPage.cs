@@ -8,11 +8,10 @@ namespace Instagram.Pages
 {
     public class InstagramMainFeedPage
     {
+        #region 'Fields and controls'
 
-#region 'Fields and controls'
-
-        IWebDriver Driver;
-        private const string SearchInputPath = "//input[contains(@class, '_9x5sw')]";
+        private IWebDriver Driver;
+        private const string SearchInputPath = "//input[contains(@class, 'XTCLo x3qfX ')]";
         private const string DesctopNavProfile = "a[class*='coreSpriteDesktopNavProfile']";
 
         [FindsBy(How = How.XPath, Using = SearchInputPath)]
@@ -21,7 +20,7 @@ namespace Instagram.Pages
         [FindsBy(How = How.CssSelector, Using = DesctopNavProfile)]
         private IWebElement Profile;
 
-        #endregion
+        #endregion 'Fields and controls'
 
         #region 'Constructor'
 
@@ -32,15 +31,15 @@ namespace Instagram.Pages
             PageFactory.InitElements(Driver, this);
         }
 
-#endregion
+        #endregion 'Constructor'
 
-#region 'Methods'
+        #region 'Methods'
 
         public InstagramSearchResultsPage SearchForAHashTag(string tag)
         {
-            this.SearchInput.SendText(tag);            
+            this.SearchInput.SendText(tag);
             Driver.WaitForElementVisible(By.ClassName("_q8rex"), 10);
-            this.SearchInput.SendKeys(Keys.Enter);                            
+            this.SearchInput.SendKeys(Keys.Enter);
 
             return new InstagramSearchResultsPage();
         }
@@ -59,7 +58,6 @@ namespace Instagram.Pages
             return new InstagramProfilePage();
         }
 
-        #endregion
-
+        #endregion 'Methods'
     }
 }

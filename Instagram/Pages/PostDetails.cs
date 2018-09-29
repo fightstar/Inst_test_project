@@ -14,8 +14,8 @@ namespace Instagram.Pages
         private IWebDriver Driver;
 
         private const string ArticleCss = "article";
-        private const string OpenHeartPath = ".//span[contains(@class,'coreSpriteHeartOpen')]";
-        private const string FullHeartPath = ".//span[contains(@class,'coreSpriteHeartFull')]";
+        private const string OpenHeartPath = ".//span[contains(@class,'glyphsSpriteHeart__outline')]";
+        private const string FullHeartPath = ".//span[contains(@class,'glyphsSpriteHeart__filled')]";
         private const string CloseDetailsButtonPath = "//button[@class='_3eajp']";
         private const string RightPaginatorArrowCss = "a[class$=coreSpriteRightPaginationArrow]";
         //private const string Follow = "//button [@class = '_ah57t _84y62 _i46jh _rmr7s']";

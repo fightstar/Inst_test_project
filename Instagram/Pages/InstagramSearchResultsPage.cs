@@ -8,56 +8,54 @@ namespace Instagram.Pages
 {
     public class InstagramSearchResultsPage : InstagramMainFeedPage
     {
-
-#region 'Fields and controls'
+        #region 'Fields and controls'
 
         private IWebDriver Driver;
 
-        private IWebElement LoadMoreButton { get
+        private IWebElement LoadMoreButton
         {
-            return Driver.WaitForElementExists(By.XPath("//a[contains(@class,'_8imhp')]"));
-        } }
+            get
+            {
+                return Driver.WaitForElementExists(By.XPath("//a[contains(@class,'_8imhp')]"));
+            }
+        }
 
-        [FindsBy(How = How.XPath, Using = @"//div[@class='_myci9']")]
+        [FindsBy(How = How.XPath, Using = @"//div[@class='EZdmt']")]
         private IList<IWebElement> LoadedRowsWithPanes;
 
-#endregion
+        #endregion 'Fields and controls'
 
-#region 'Constructor'
+        #region 'Constructor'
 
         public InstagramSearchResultsPage()
         {
             Driver = Inj.Driver;
-            Driver.WaitForElementVisible(By.ClassName("_s53mj"));            
+            System.Threading.Thread.Sleep(2000);
             PageFactory.InitElements(Driver, this);
         }
 
-#endregion
+        #endregion 'Constructor'
 
-#region 'Methods'
+        #region 'Methods'
 
         public InstagramSearchResultsPage LoadMoreResults()
-        {            
-
+        {
             this.LoadMoreButton.ScrollIntoView();
             this.LoadMoreButton.Click();
             return this;
         }
 
-
         public IWebElement GetFirstPane()
         {
-           return  this.LoadedRowsWithPanes.First().FindElements(By.TagName("a")).First();            
+            return this.LoadedRowsWithPanes.First().FindElements(By.TagName("a")).First();
         }
-
 
         public PostDetails OpenFirstPostDetails()
         {
             GetFirstPane().ClickJs();
-            return new PostDetails();                                               
+            return new PostDetails();
         }
 
-#endregion
-
+        #endregion 'Methods'
     }
 }
